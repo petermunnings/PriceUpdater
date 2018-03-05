@@ -125,7 +125,7 @@ function updateSheet(auth, sheetId, cell, body){
 
 }
 
-function updateValues(auth, url, cell, desc) {
+function updateValues(auth, url, cell, desc, updateBonsma) {
   fetchJson(url, function(response){
     var value = 0;
     if(response.result){
@@ -144,7 +144,7 @@ function updateValues(auth, url, cell, desc) {
     var body = {
       values: values
     };
-    if(desc!='grid'){
+    if(updateBonsma == true){
       updateSheet(auth, '10_pSVvYywyvIvD3jevi-GoPoPHg4tvOR9duxeoD2-PA', cell, body)
     }
     updateSheet(auth, '1wQOdEI9ZhE2FcrES2YRGvK8Uha45hQCVL3SXEMRwG04', cell, body)
@@ -156,11 +156,12 @@ function updateSpreadsheet(){
     replace(/T/, ' ').      // replace T with a space
     replace(/\..+/, '');
   console.log('Date:', readableDate);
-  updateValues(g_auth, 'https://api.cryptowat.ch/markets/bitstamp/ltcbtc/price', 'Rates!E4:E4', 'ltc')
-  updateValues(g_auth, 'https://api.cryptowat.ch/markets/bitstamp/ethbtc/price', 'Rates!C4:C4', 'eth')
-  updateValues(g_auth, 'https://api.cryptowat.ch/markets/poloniex/zecbtc/price', 'Rates!D4:D4', 'zec')
-  updateValues(g_auth, 'https://api.mybitx.com/api/1/ticker?pair=XBTZAR', 'Rates!B6:B6', 'btc')
-  updateValues(g_auth, 'https://api.coinmarketcap.com/v1/ticker/grid/', 'Rates!G4:G4', 'grid')
+  updateValues(g_auth, 'https://api.cryptowat.ch/markets/bitstamp/ltcbtc/price', 'Rates!E4:E4', 'ltc', true)
+  updateValues(g_auth, 'https://api.cryptowat.ch/markets/bitstamp/ethbtc/price', 'Rates!C4:C4', 'eth', true)
+  updateValues(g_auth, 'https://api.cryptowat.ch/markets/poloniex/zecbtc/price', 'Rates!D4:D4', 'zec', true)
+  updateValues(g_auth, 'https://api.cryptowat.ch/markets/bitstamp/btcusd/price', 'Rates!B9:B9', 'btcusd', false)
+  updateValues(g_auth, 'https://api.mybitx.com/api/1/ticker?pair=XBTZAR', 'Rates!B6:B6', 'btc', true)
+  updateValues(g_auth, 'https://api.coinmarketcap.com/v1/ticker/grid/', 'Rates!G4:G4', 'grid', false)
 }
 
 function repeatUpdate(auth){
